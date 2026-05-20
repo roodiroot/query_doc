@@ -25,32 +25,38 @@ def ask(question: str) -> str:
 
     for index, result in enumerate(results, start=1):
         context_parts.append(f"""
-SOURCE {index}
-TITLE: {result["title"]}
-TEXT:
-{result["text"]}
-""")
+                                SOURCE {index}
+                                TITLE: {result["title"]}
+                                SCORE: {result["score"]}
+                                TEXT:
+                                {result["text"]}
+                            """)
 
     context = "\n\n".join(context_parts)
 
     response = client.responses.create(
         model=CHAT_MODEL,
         input=f"""
-Ты отвечаешь только на основе контекста ниже.
-Если просят материалы, просто отдавай ссылки. Без лишнего описания.
-Если в контексте есть код, возвращай его как markdown code block, сохраняя тройные обратные кавычки и язык программирования.
-Отвечай кратко.
-Если ответа нет в контексте, скажи:
-"Такой информации в документе нет.".
-Не додумывай и не используй внешние знания.
-Отвечай кратко.
+    Ты отвечаешь только на основе контекста ниже.
+    Если просят материалы, просто отдавай ссылки. Без лишнего описания.
+    Если в контексте есть код, возвращай его как markdown code block, сохраняя тройные обратные кавычки и язык программирования.
+    Отвечай кратко.
+    Если ответа нет в контексте, скажи:
+    "Такой информации в документе нет.".
+    Не додумывай и не используй внешние знания.
+    Отвечай кратко.
 
-КОНТЕКСТ:
-{context}
+    КОНТЕКСТ:
+    {context}                  
 
-ВОПРОС:
-{question}
-""",
+    ВОПРОС:
+    {question}                   
+                """,
     )
 
-    return response.output_text
+    answer = response.output_text.strip()
+
+    if not answer:
+        return "Не удалось сформировать ответ по найденному контексту."
+
+    return answer

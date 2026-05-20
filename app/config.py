@@ -5,4 +5,4 @@ DOC_PATH = "data/docs.md"
 INDEX_PATH = "data/rag_index.json"
 
 TOP_K = 5
-MIN_SCORE = 0.25
+MIN_SCORE = 0.2
