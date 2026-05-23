@@ -56,14 +56,17 @@ async def chat(message: Message):
         await message.answer(f"Ошибка: {e}")
 
 
-async def main():
+async def main(handle_signals=True):
     global BOT_USERNAME
     logging.basicConfig(level=logging.INFO)
 
     me = await bot.get_me()
     BOT_USERNAME = me.username
 
-    await dp.start_polling(bot)
+    try:
+        await dp.start_polling(bot, handle_signals=handle_signals)
+    finally:
+        await bot.session.close()
 
 
 if __name__ == "__main__":
