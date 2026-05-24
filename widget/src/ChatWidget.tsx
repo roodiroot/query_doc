@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ClickButton from "./components/ClickButton";
 import type { AskResponse } from "./types/general";
 import ChatSection from "./components/chat/ChatSection";
@@ -90,6 +90,17 @@ export default function ChatWidget() {
   function handleTagClick(value: string) {
     void sendMessage(value);
   }
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
 
   return (
     <div className="fixed font-sans bottom-5 right-5 z-9999 text-slate-900 sm:bottom-3 sm:right-3">

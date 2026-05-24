@@ -15,7 +15,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ isLoading, text, setText, handleS
   const { clearMessages } = useChatStore();
 
   return (
-    <div className="px-2 pb-2">
+    <div className="px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
       <form
         onSubmit={handleSubmit}
         className="relative border border-slate-200 bg-white rounded-2xl px-4 pt-4 pb-1"

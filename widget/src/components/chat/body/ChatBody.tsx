@@ -49,7 +49,7 @@ const ChatBody: React.FC<ChatBodyProps> = ({
     <div
       ref={containerRef}
       {...props}
-      className="flex flex-1 flex-col gap-2.5 overflow-y-auto p-3.5"
+      className="flex min-h-0 flex-1 flex-col gap-2.5 overflow-y-auto p-3.5"
     >
       <div ref={contentRef} className="flex flex-col gap-2.5">
         {messages?.map((message, index) => {

@@ -34,11 +34,11 @@ const ChatSection: React.FC<ChatSectionProps> = ({
   return (
     <section
       className={cn(
-        !isDesctop ? "fixed inset-0" : "sm:relative",
-        "sm:relative sm:w-130 sm:h-[calc(100vh-100px)] sm:shadow-lg sm:shadow-indigo-500/10 sm:rounded-3xl transition-all overflow-hidden border border-slate-200 bg-slate-50",
+        !isDesctop ? "fixed inset-0 h-dvh w-screen rounded-none border-0" : "sm:relative",
+        "sm:relative sm:w-130 max-h-dvh sm:h-[calc(100vh-100px)] sm:shadow-lg sm:shadow-indigo-500/10 sm:rounded-3xl transition-all overflow-hidden border border-slate-200 bg-slate-50",
       )}
     >
-      <div className="w-full h-full flex flex-col">
+      <div className="w-full h-full min-h-0 flex flex-col">
         <ChatHeader setIsOpen={setIsOpen} isLoading={isLoading} />
         <ChatBody
           isLoading={isLoading}
