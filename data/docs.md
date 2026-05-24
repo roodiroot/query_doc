@@ -57,6 +57,8 @@
 
 Энергопотребление: **0,7 кВт**
 
+Ссылка на товар https://terraholod.ru/catalog/xolodilnoe-oborudovanie-terra-holod-th102ka1-m
+
 ---
 
 ### TH103KA1-M
@@ -71,6 +73,8 @@
 Напряжение питания: **220 В**
 
 Энергопотребление: **0,85 кВт**
+
+ссылка на товар https://terraholod.ru/catalog/xolodilnoe-oborudovanie-terra-holod-th103ka1-m
 
 ---
 
@@ -87,6 +91,8 @@
 
 Энергопотребление: **1 кВт**
 
+ссылка на товар https://terraholod.ru/catalog/xolodilnoe-oborudovanie-terra-holod-th107ka1-m
+
 ---
 
 ### TH206KA1-M
@@ -101,6 +107,8 @@
 Напряжение питания: **220 В**
 
 Энергопотребление: **1,6 кВт**
+
+ссылка на товар https://terraholod.ru/catalog/xolodilnoe-oborudovanie-terra-holod-th206ka1-m
 
 ## Модельный ряд и подбор оборудования
 
@@ -117,6 +125,8 @@
 
 Энергопотребление: **2,3 кВт**
 
+ссылка на товар https://terraholod.ru/catalog/xolodilnoe-oborudovanie-terra-holod-th305ka1-m
+
 ---
 
 ### TH400KA1-M
@@ -131,6 +141,8 @@
 Напряжение питания: **220 В**
 
 Энергопотребление: **2,7 кВт**
+
+ссылка на товар https://terraholod.ru/catalog/th400%D0%BA%D0%B01-%D0%BC
 
 ---
 
@@ -147,6 +159,8 @@
 
 Энергопотребление: **3,5 кВт**
 
+ссылка на товар https://terraholod.ru/catalog/xolodilnoe-oborudovanie-terra-holod-th502ka1-m
+
 ---
 
 ### TH703TA3-M
@@ -162,6 +176,8 @@
 
 Энергопотребление: **4,6 кВт**
 
+ссылка на товар https://terraholod.ru/catalog/xolodilnoe-oborudovanie-terra-holod-th703ta3-m
+
 ---
 
 ### TH801TA3-M
@@ -176,6 +192,8 @@
 Напряжение питания: **380 В**
 
 Энергопотребление: **5,6 кВт**
+
+ссылка на товар https://terraholod.ru/catalog/xolodilnoe-oborudovanie-terra-holod-th801ta3-m
 
 ---
 

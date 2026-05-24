@@ -1,6 +1,7 @@
 import { cn } from "../../../lib/utils";
 import type { Message } from "../../../types/general";
-import TypewriterText from "./TypewriterText";
+// import TypewriterText from "./TypewriterText";
+import MarkdownMessage from "./MarkdownMessage";
 
 interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
   isUser: boolean;
@@ -11,13 +12,13 @@ interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
 const MessageComponent: React.FC<MessageProps> = ({
   message,
   isUser,
-  shouldType,
-  onTypingComplete,
+  // shouldType,
+  // onTypingComplete,
 }) => {
   return (
     <div
       className={cn(
-        "max-w-[82%] whitespace-pre-wrap wrap-break-word rounded-3xl px-4 py-3 text-sm leading-5",
+        "max-w-[82%] wrap-break-words rounded-3xl px-4 py-3 text-sm leading-5",
         isUser
           ? "self-end bg-indigo-600 text-white rounded-br-sm shadow-2xl"
           : "self-start border border-slate-200 bg-white text-slate-800 rounded-bl-sm shadow-lg",
@@ -26,11 +27,12 @@ const MessageComponent: React.FC<MessageProps> = ({
       {isUser ? (
         message.text
       ) : (
-        <TypewriterText
-          text={message.text}
-          animate={shouldType}
-          onComplete={onTypingComplete}
-        />
+        // <TypewriterText
+        //   text={message.text}
+        //   animate={shouldType}
+        //   onComplete={onTypingComplete}
+        // />
+        <MarkdownMessage text={message.text} />
       )}
     </div>
   );
