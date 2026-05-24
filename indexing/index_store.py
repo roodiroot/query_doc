@@ -8,9 +8,7 @@ def save_index(chunks: list[dict], vectors: list[list[float]]) -> None:
 
     for chunk, vector in zip(chunks, vectors):
         item = {
-            "title": chunk["title"],
-            "chunk_index": chunk["chunk_index"],
-            "text": chunk["text"],
+            **chunk,
             "embedding": vector,
         }
 

@@ -1,55 +1,87 @@
 import re
 
-
-def split_by_headers(md: str):
-    pattern = r"^(#{1,6})\s+(.+)$"
-
-    matches = list(re.finditer(pattern, md, flags=re.MULTILINE))
-
-    sections = []
-
-    for i, match in enumerate(matches):
-        title = match.group(2)
-        start = match.end()
-
-        if i + 1 < len(matches):
-            end = matches[i + 1].start()
-
-        else:
-            end = len(md)
-
-        content = md[start:end].strip()
-        sections.append({"title": title, "content": content})
-
-    return sections
+HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
+HR_RE = re.compile(r"^\s*-{3,}\s*$")
 
 
-def split_text_into_chunks(text: str, max_chars: int = 1200, overlap: int = 200):
+def normalize_text(text: str) -> str:
+    return re.sub(r"\n{3,}", "\n\n", text).strip()
+
+
+def split_long_text(text: str, max_chars: int = 900) -> list[str]:
+    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+
     chunks = []
-    start = 0
+    current = ""
 
-    while start < len(text):
-        end = start + max_chars
-        chunk = text[start:end].strip()
+    for paragraph in paragraphs:
+        if not current:
+            current = paragraph
+            continue
 
-        if chunk:
-            chunks.append(chunk)
+        candidate = current + "\n\n" + paragraph
 
-        start = start + max_chars - overlap
+        if len(candidate) <= max_chars:
+            current = candidate
+        else:
+            chunks.append(current)
+            current = paragraph
+
+    if current:
+        chunks.append(current)
 
     return chunks
 
 
 def make_chunks(md: str):
-    sections = split_by_headers(md)
+    heading_stack = []
+    buffer = []
     result = []
 
-    for section in sections:
-        small_chunks = split_text_into_chunks(section["content"])
+    def flush():
+        nonlocal buffer
 
-        for index, chunk in enumerate(small_chunks):
+        body = normalize_text("\n".join(buffer))
+        buffer = []
+
+        if not body:
+            return
+
+        title = " > ".join(heading_stack)
+
+        for part in split_long_text(body):
+            # Заголовочный путь добавляем в embedding-текст,
+            # чтобы поиск понимал модель, раздел и подраздел.
+            text = f"{title}\n\n{part}" if title else part
+
             result.append(
-                {"title": section["title"], "chunk_index": index, "text": chunk}
+                {
+                    "title": title,
+                    "chunk_index": len(result),
+                    "text": text,
+                }
             )
+
+    for line in md.splitlines():
+        heading_match = HEADING_RE.match(line)
+
+        if heading_match:
+            flush()
+
+            level = len(heading_match.group(1))
+            title = heading_match.group(2).strip()
+
+            heading_stack = heading_stack[: level - 1]
+            heading_stack.append(title)
+
+            continue
+
+        if HR_RE.match(line):
+            flush()
+            continue
+
+        buffer.append(line)
+
+    flush()
 
     return result

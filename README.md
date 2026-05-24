@@ -62,12 +62,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Если при запуске появятся ошибки про отсутствующие модули, установи также:
-
-```bash
-pip install openai python-dotenv numpy
-```
-
 ## 2. Настройка ключей
 
 В корне проекта должен быть файл `.env`.
@@ -188,4 +182,3 @@ venv/bin/python -m indexing.build_index
 ```bash
 python3
 ```
-

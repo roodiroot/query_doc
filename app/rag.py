@@ -26,7 +26,7 @@ def ask(question: str) -> str:
     for index, result in enumerate(results, start=1):
         context_parts.append(f"""
                                 SOURCE {index}
-                                TITLE: {result["title"]}
+                                SECTION_PATH: {result["title"]}
                                 SCORE: {result["score"]}
                                 TEXT:
                                 {result["text"]}
@@ -38,6 +38,7 @@ def ask(question: str) -> str:
         model=CHAT_MODEL,
         input=f"""
     Ты отвечаешь только на основе контекста ниже.
+    SECTION_PATH показывает путь заголовков в базе знаний: # > ## > ### > ####.
     Если просят материалы, просто отдавай ссылки. Без лишнего описания.
     Если в контексте есть код, возвращай его как markdown code block, сохраняя тройные обратные кавычки и язык программирования.
     Отвечай кратко.
