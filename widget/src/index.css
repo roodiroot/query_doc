@@ -1,5 +1,52 @@
 @import "tailwindcss";
 
+@theme {
+  /* ===== Base ===== */
+  --color-background: #172130;
+  --color-surface: #242D3A;
+  /* --color-surface-muted: #eef1f6; */
+
+  /* ===== Text ===== */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #97A0AF;
+  --color-text-placeholder: #90a1b9;
+  --color-text-black: #0B172D;
+
+  /* ===== Borders ===== */
+  --color-border: #242D3A;
+  /* --color-border-light: #e9edf5; */
+
+  /* ===== Brand Gradient ===== */
+  --color-primary: #4f39f6;
+  --color-primary-dark: #3e32db;
+  --color-primary-light: #6a5cff;
+
+  /* ===== Accent / Status ===== */
+  --color-online: #5b5cf6;
+  --color-info: #19b5fe;
+
+  /* ===== Message Bubbles ===== */
+  --color-message-user: #3C3EA8;
+  --color-message-ai: #2B3443;
+  --color-message-ai-text: #1f2a44;
+
+  /* ===== Inputs ===== */
+  --color-input-bg: #ffffff;
+  --color-input-border: #d9e0ee;
+  --color-input-placeholder: #9aa7c2;
+
+  /* ===== Buttons ===== */
+  --color-button-secondary: #17a8f5;
+
+  /* ===== Shadows ===== */
+  --shadow-card: 0 8px 24px rgba(31, 42, 68, 0.08);
+  --shadow-soft: 0 4px 12px rgba(31, 42, 68, 0.06);
+
+  /* ===== Radius ===== */
+  --radius-chat: 35px;
+  --radius-chat-min: 25px;
+}
+
 @layer utilities {
 
   .scrollbar-hide {

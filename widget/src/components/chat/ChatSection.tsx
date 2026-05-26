@@ -30,12 +30,12 @@ const ChatSection: React.FC<ChatSectionProps> = ({
   onTypingComplete,
 }) => {
   const isDesctop = useMediaQuery("(min-width: 640px)");
-  console.log(isDesctop);
+
   return (
     <section
       className={cn(
         !isDesctop ? "fixed inset-0 h-dvh w-screen rounded-none border-0" : "sm:relative",
-        "sm:relative sm:w-130 max-h-dvh sm:h-[calc(100vh-100px)] sm:shadow-lg sm:shadow-indigo-500/10 sm:rounded-3xl transition-all overflow-hidden border border-slate-200 bg-slate-50",
+        "sm:relative sm:w-100 max-h-dvh sm:h-[calc(100vh-100px)] sm:shadow-lg sm:shadow-indigo-500/10 sm:rounded-chat transition-all overflow-hidden border border-border bg-background",
       )}
     >
       <div className="w-full h-full min-h-0 flex flex-col">

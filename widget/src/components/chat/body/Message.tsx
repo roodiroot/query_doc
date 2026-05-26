@@ -1,5 +1,6 @@
 import { cn } from "../../../lib/utils";
 import type { Message } from "../../../types/general";
+import Icons from "../../ui/Icons";
 // import TypewriterText from "./TypewriterText";
 import MarkdownMessage from "./MarkdownMessage";
 
@@ -18,21 +19,35 @@ const MessageComponent: React.FC<MessageProps> = ({
   return (
     <div
       className={cn(
-        "max-w-[82%] wrap-break-words rounded-3xl px-4 py-3 text-sm leading-5",
+        "max-w-[82%] wrap-break-words rounded-3xl px-4 py-3 text-sm leading-5 text-text-primary/90",
         isUser
-          ? "self-end bg-indigo-600 text-white rounded-br-sm shadow-2xl"
-          : "self-start border border-slate-200 bg-white text-slate-800 rounded-bl-sm shadow-lg",
+          ? "self-end bg-message-user rounded-br-sm"
+          : "self-start bg-message-ai rounded-bl-sm",
       )}
     >
       {isUser ? (
-        message.text
+        <div className="">
+          {message.text}
+          <div className="mt-2 flex justify-end">
+            <span className="text-xs text-balance text-text-secondary">10:42</span>
+          </div>
+        </div>
       ) : (
         // <TypewriterText
         //   text={message.text}
         //   animate={shouldType}
         //   onComplete={onTypingComplete}
         // />
-        <MarkdownMessage text={message.text} />
+        <div className="">
+          <MarkdownMessage text={message.text} />
+          <div className="mt-2 flex items-center justify-between">
+            <div className="text-xs text-text-secondary">10:42</div>
+            <div className="flex gap-2">
+              <Icons.tup className="fill-text-secondary hover:fill-text-primary cursor-pointer transition-colors" />
+              <Icons.tdown className="fill-text-secondary hover:fill-text-primary cursor-pointer transition-colors" />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

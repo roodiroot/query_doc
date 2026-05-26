@@ -5,8 +5,20 @@ import ChatSection from "./components/chat/ChatSection";
 import { useChatStore } from "./store/chatStore";
 
 const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
+const sessionStorageKey = "chat-session-id";
 
-console.log(apiBaseUrl);
+function getChatSessionId() {
+  const savedSessionId = localStorage.getItem(sessionStorageKey);
+
+  if (savedSessionId) {
+    return savedSessionId;
+  }
+
+  const sessionId = crypto.randomUUID();
+  localStorage.setItem(sessionStorageKey, sessionId);
+
+  return sessionId;
+}
 
 export default function ChatWidget() {
   const { messages, setMessages } = useChatStore();
@@ -42,6 +54,7 @@ export default function ChatWidget() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          session_id: getChatSessionId(),
           question: trimmedText,
         }),
       });
@@ -103,7 +116,7 @@ export default function ChatWidget() {
   }, [isOpen]);
 
   return (
-    <div className="fixed font-sans bottom-5 right-5 z-9999 text-slate-900 sm:bottom-3 sm:right-3">
+    <div className="fixed font-sans bottom-5 right-5 z-9999 text-text-primary sm:bottom-3 sm:right-3">
       {isOpen && (
         <ChatSection
           messages={messages}
