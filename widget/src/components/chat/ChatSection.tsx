@@ -35,7 +35,7 @@ const ChatSection: React.FC<ChatSectionProps> = ({
     <section
       className={cn(
         !isDesctop ? "fixed inset-0 h-dvh w-screen rounded-none border-0" : "sm:relative",
-        "sm:relative sm:w-100 max-h-dvh sm:h-[calc(100vh-100px)] sm:shadow-lg sm:shadow-indigo-500/10 sm:rounded-chat transition-all overflow-hidden border border-border bg-background",
+        "sm:relative sm:w-100 max-h-dvh sm:h-[calc(100vh-100px)] sm:shadow-lg sm:shadow-indigo-500/10 sm:rounded-chat transition-all overflow-hidden bg-background",
       )}
     >
       <div className="w-full h-full min-h-0 flex flex-col">
