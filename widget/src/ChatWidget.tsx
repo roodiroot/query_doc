@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ClickButton from "./components/ClickButton";
-import type { AskResponse } from "./types/general";
+import type { AskResponse, MessageFeedback } from "./types/general";
 import ChatSection from "./components/chat/ChatSection";
 import { useChatStore } from "./store/chatStore";
 
@@ -41,6 +41,7 @@ export default function ChatWidget() {
         id: crypto.randomUUID(),
         role: "user",
         text: trimmedText,
+        createdAt: new Date().toISOString(),
       },
     ]);
 
@@ -71,8 +72,11 @@ export default function ChatWidget() {
         ...currentMessages,
         {
           id: botMessageId,
+          messageId: data.message_id,
           role: "bot",
           text: data.answer || "Не удалось сформировать ответ.",
+          createdAt: data.created_at || new Date().toISOString(),
+          feedback: null,
         },
       ]);
 
@@ -88,6 +92,8 @@ export default function ChatWidget() {
           id: botMessageId,
           role: "bot",
           text: "Не удалось получить ответ. Попробуйте ещё раз.",
+          createdAt: new Date().toISOString(),
+          feedback: null,
         },
       ]);
 
@@ -96,6 +102,47 @@ export default function ChatWidget() {
       setIsLoading(false);
     }
   }
+
+  async function sendFeedback(messageId: number | null | undefined, feedback: MessageFeedback) {
+    if (!messageId) {
+      return;
+    }
+
+    const currentMessage = messages.find((message) => message.messageId === messageId);
+    const nextFeedback = currentMessage?.feedback === feedback ? null : feedback;
+
+    setMessages((currentMessages) =>
+      currentMessages.map((message) =>
+        message.messageId === messageId
+          ? {
+              ...message,
+              feedback: nextFeedback,
+            }
+          : message,
+      ),
+    );
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          session_id: getChatSessionId(),
+          message_id: messageId,
+          feedback: nextFeedback,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Не удалось сохранить реакцию");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     void sendMessage(text);
@@ -122,6 +169,7 @@ export default function ChatWidget() {
           messages={messages}
           isLoading={isLoading}
           text={text}
+          onFeedback={sendFeedback}
           setIsOpen={setIsOpen}
           setText={setText}
           handleSubmit={handleSubmit}

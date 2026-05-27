@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import type { Message as MessageType } from "../../../types/general";
+import type { MessageFeedback, Message as MessageType } from "../../../types/general";
 import MessageComponent from "./Message";
 import MessageLoadingComponent from "./MessageLoading";
 
@@ -8,6 +8,7 @@ interface ChatBodyProps extends React.HTMLAttributes<HTMLDivElement> {
   isLoading?: boolean;
   messages?: MessageType[];
   typingMessageId?: string | null;
+  onFeedback?: (messageId: number | null | undefined, feedback: MessageFeedback) => void;
   onTypingComplete?: () => void;
 }
 
@@ -15,6 +16,7 @@ const ChatBody: React.FC<ChatBodyProps> = ({
   isLoading,
   messages,
   typingMessageId,
+  onFeedback,
   onTypingComplete,
   ...props
 }) => {
@@ -63,6 +65,7 @@ const ChatBody: React.FC<ChatBodyProps> = ({
               message={message}
               shouldType={message.id === typingMessageId}
               onTypingComplete={onTypingComplete}
+              onFeedback={onFeedback}
             />
           );
         })}

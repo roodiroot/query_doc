@@ -16,7 +16,11 @@ const ChatInput: React.FC<ChatInputProps> = ({ isLoading, text, setText, handleS
 
   return (
     <div className="px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
-      <form onSubmit={handleSubmit} className="relative bg-surface rounded-chat-min px-4 pt-4 pb-1">
+      <form
+        onSubmit={handleSubmit}
+        style={{ border: "2px solid var(--color-border)" }}
+        className="relative bg-surface rounded-chat-min px-4 pt-4 pb-1"
+      >
         <div className="flex gap-2 ">
           <Input
             value={text}

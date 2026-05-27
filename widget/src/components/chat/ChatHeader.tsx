@@ -9,7 +9,10 @@ interface ChatHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 const ChatHeader: React.FC<ChatHeaderProps> = ({ isLoading, setIsOpen }) => {
   return (
     <header>
-      <div className="border-border border-b py-3 px-5 bg-background flex items-center justify-between ">
+      <div
+        style={{ borderBottom: "2px solid var(--color-border)" }}
+        className="py-3 px-5 bg-background flex items-center justify-between "
+      >
         <div className="flex items-center gap-4">
           <div className="size-12 bg-primary rounded-full flex justify-center items-center">
             <Icons.ai />

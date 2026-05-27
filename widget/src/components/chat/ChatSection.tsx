@@ -1,6 +1,6 @@
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { cn } from "../../lib/utils";
-import type { Message } from "../../types/general";
+import type { Message, MessageFeedback } from "../../types/general";
 
 import ChatBody from "./body/ChatBody";
 import ChatHeader from "./ChatHeader";
@@ -12,6 +12,7 @@ interface ChatSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   setIsOpen?: (value: boolean) => void;
   messages?: Message[];
   text?: string;
+  onFeedback?: (messageId: number | null | undefined, feedback: MessageFeedback) => void;
   setText?: (value: string) => void;
   handleSubmit?: (event: React.SubmitEvent<HTMLFormElement>) => void;
   handleTagClick?: (value: string) => void;
@@ -24,6 +25,7 @@ const ChatSection: React.FC<ChatSectionProps> = ({
   text,
   setIsOpen,
   setText,
+  onFeedback,
   handleSubmit,
   handleTagClick,
   typingMessageId,
@@ -33,6 +35,7 @@ const ChatSection: React.FC<ChatSectionProps> = ({
 
   return (
     <section
+      style={{ border: "2px solid var(--color-border)" }}
       className={cn(
         !isDesctop ? "fixed inset-0 h-dvh w-screen rounded-none border-0" : "sm:relative",
         "sm:relative sm:w-100 max-h-dvh sm:h-[calc(100vh-100px)] sm:shadow-lg sm:shadow-indigo-500/10 sm:rounded-chat transition-all overflow-hidden bg-background",
@@ -43,6 +46,7 @@ const ChatSection: React.FC<ChatSectionProps> = ({
         <ChatBody
           isLoading={isLoading}
           messages={messages}
+          onFeedback={onFeedback}
           typingMessageId={typingMessageId}
           onTypingComplete={onTypingComplete}
         />
